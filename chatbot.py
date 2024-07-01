@@ -4,8 +4,8 @@ import google.generativeai as genai
 import threading
 from datetime import datetime
 
-# Replace with your actual API key
-API_KEY = 'AIzaSyAuWyMpMDz09z321lrA5l_8HoSD85v3wsU'  # Replace with your actual API key
+
+API_KEY = 'Replace with your actual API key'  
 
 class ChatApp(ctk.CTk):
     def __init__(self):
