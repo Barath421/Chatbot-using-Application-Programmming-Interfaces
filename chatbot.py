@@ -4,7 +4,6 @@ import google.generativeai as genai
 import threading
 from datetime import datetime
 
-
 API_KEY = 'Replace with your actual API key'  
 
 class ChatApp(ctk.CTk):
@@ -20,16 +19,16 @@ class ChatApp(ctk.CTk):
         self.chat_frame.pack(pady=5, padx=10, fill="both", expand=True)
 
         # Date Label in the center of the chat area
-        self.date_label = ctk.CTkLabel(self.chat_frame, text=self.get_current_date(), font=("Arial", 12))
+        self.date_label = ctk.CTkLabel(self.chat_frame, text=self.get_current_date(), font=("Arial", 12), fg_color="ivory2", text_color="black")
         self.date_label.pack(pady=10)
 
         # Input field (Entry widget)
-        self.input_field = ctk.CTkEntry(self, placeholder_text="Type your message...")
+        self.input_field = ctk.CTkEntry(self, placeholder_text="Type your message...", fg_color="white", text_color="black")
         self.input_field.pack(side="left", padx=10, pady=10, fill="x", expand=True)
         self.input_field.bind("<Return>", self.send_message)
 
         # Send button (Button widget)
-        self.send_button = ctk.CTkButton(self, text="Send", command=self.send_message)
+        self.send_button = ctk.CTkButton(self, text="Send", command=self.send_message, fg_color="blue", text_color="white")
         self.send_button.pack(side="left", padx=10, pady=10)
 
         # Configure Generative AI
@@ -45,14 +44,14 @@ class ChatApp(ctk.CTk):
         self.input_field.delete(0, tk.END)
 
         if user_input:
-            self.append_message(user_input, "lightblue3", "e")
-            typing_label = self.append_message("typing...", "lightgrey", "w", typing=True)
+            self.append_message(user_input, "lightblue3", "e", text_color="black")
+            typing_label = self.append_message("typing...", "lightgrey", "w", text_color="grey", typing=True)
             threading.Thread(target=self.generate_chatbot_response, args=(user_input, typing_label)).start()
 
-    def append_message(self, message, color, anchor, typing=False):
+    def append_message(self, message, color, anchor, text_color="black", typing=False):
         frame = ctk.CTkFrame(self.chat_frame, fg_color=color, corner_radius=10)
         
-        label = ctk.CTkLabel(frame, text=message, wraplength=380, anchor="w")
+        label = ctk.CTkLabel(frame, text=message, wraplength=380, anchor="w", text_color=text_color)
         label.pack(padx=5, pady=(5, 1))  # Reduce space between message and timestamp
         
         if not typing:
@@ -83,7 +82,7 @@ class ChatApp(ctk.CTk):
 
     def display_bot_response(self, response, typing_label):
         typing_label.master.destroy()  # Remove the typing label
-        self.append_message(response, "lightgrey", "w")
+        self.append_message(response, "lightgrey", "w", text_color="black")
 
 if __name__ == "__main__":
     app = ChatApp()
